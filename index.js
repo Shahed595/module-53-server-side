@@ -16,9 +16,27 @@ const users=[
     {id:5,name:"kobori",email:"kobori@gamil.com",phone:"01893428883"},
 ]
 
+
+//users accesing 
+// app.get('/users',(req,res)=>{
+//     res.send(users);
+// })
+
+
+//search query
 app.get('/users',(req,res)=>{
-    res.send(users);
+    //search condition
+    const search=req.query.search;
+    if(search){
+        const searchResult=users.filter(user=>user.name.toLocaleLowerCase().includes(search));
+        res.send(searchResult);
+    }
+    else{
+        res.send(users);
+    }
 })
+
+
 //dynamic,api,params
 app.get('/users/:id',(req,res)=>{
     const id=req.params.id;
